@@ -1,36 +1,36 @@
-version: 2
-
 models:
   - name: stg_jaffle_shop__customers
-    description:  The grain of this table is one unique customer per row
-    columns:
+    description: Staged customer data from our jaffle shop app.
+    columns: 
       - name: customer_id
-        description: This is primary key for the customer
-        tests:
+        description: The primary key for customers.
+        data_tests:
           - unique
           - not_null
 
   - name: stg_jaffle_shop__orders
-    description: One Order per row
-    columns:
+    description: Staged order data from our jaffle shop app.
+    columns: 
       - name: order_id
-        description: Primary key for orders table
-        tests:
+        description: Primary key for orders.
+        data_tests:
           - unique
           - not_null
-
-      - name: order_status
-        description: "{{doc('order_status')}}"
-        tests:
+      - name: status
+        description: "{{ doc('order_status') }}"
+        data_tests:
           - accepted_values:
-              values:
-                - completed
-                - returned               
-                - placed
-                - shipped
-                - return_pending
-      - name : customer_id
-        tests:
+              arguments:
+                values:
+                  - completed
+                  - shipped
+                  - returned
+                  - placed
+                  - return_pending
+      - name: customer_id
+        description: Foreign key to stg_customers.customer_id
+        data_tests:
           - relationships:
-              field: customer_id
-              to: ref('stg_jaffle_shop__customers')
+              arguments:
+                to: ref('stg_jaffle_shop__customers')
+                field: customer_id
