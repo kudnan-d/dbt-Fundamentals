@@ -13,8 +13,8 @@ sources:
     #  loaded_at_field: _etl_loaded_at
     tables:
       - name: customers
-        freshness: 
-          null
+        # freshness: 
+        #   null
         
       - name: orders
         
