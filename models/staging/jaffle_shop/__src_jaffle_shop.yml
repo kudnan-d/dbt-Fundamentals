@@ -1,38 +1,24 @@
 sources:
   - name: jaffle_shop
+    description: A clone of a Postgres database
     database: raw
     schema: jaffle_shop
-    # config:
-    #  freshness:
-    #    warn_after:
-    #      count: 6
-    #      period: hour
-    #    error_after:
-    #      count: 1
-    #      period: day
-    #  loaded_at_field: _etl_loaded_at
     tables:
       - name: customers
+        description: Raw customers data
         columns:
           - name: id
+            description: primary key
             data_tests:
               - unique
-              - not_null
-        # freshness: 
-        #   null
-        
+              - not_null        
       - name: orders
-        columns:
-          - name: id
-            data_tests:
-              - unique
-              - not_null
-        
-
-
-
-  - name: stripe
-    database: raw
-    schema: stripe
-    tables:
-      - name: payments
+        config:
+          freshness:
+            warn_after:
+              count: 24
+              period: hour
+            error_after:
+              count: 48
+              period: hour
+          loaded_at_field: _etl_loaded_at

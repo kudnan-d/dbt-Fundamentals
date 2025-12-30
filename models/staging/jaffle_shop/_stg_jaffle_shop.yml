@@ -20,6 +20,7 @@ models:
           - not_null
 
       - name: order_status
+        description: "{{doc('order_status')}}"
         tests:
           - accepted_values:
               values:
@@ -32,5 +33,4 @@ models:
         tests:
           - relationships:
               field: customer_id
-              descprtion : "id field"
               to: ref('stg_jaffle_shop__customers')
